@@ -1,0 +1,147 @@
+<!-- Masthead -->
+<header class="masthead text-white text-center">
+  <div class="container">
+    <img src="../../../assets/img/Letra GreenRider modificada.png" alt="" />
+    <div class="row">
+      <div class="col-xl-9 mx-auto">
+        <h1 class="mb-5">Start a unique experience</h1>
+      </div>
+      <div class="col-md-10 col-lg-8 col-xl-7 mx-auto">
+        <form (ngSubmit)="onSearch()">
+          <div class="form-row">
+            <div class="col-12 col-md-9 mb-2 mb-md-0">
+              <input
+                type="text"
+                [formControl]="searchControl"
+                class="form-control form-control-lg"
+                placeholder="Empieza a buscar"
+              />
+            </div>
+            <div class="col-12 col-md-3">
+              <button
+                type="submit"
+                [disabled]="!searchControl.valid"
+                class="btn btn-block btn-lg btn-primary"
+              >
+                Search
+              </button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- Image Showcases -->
+<section class="showcase">
+  <div class="container-fluid p-0">
+    <div class="row no-gutters">
+      <div
+        class="col-lg-6 order-lg-2 text-white showcase-img"
+        style="background-image: url('../../../assets/img/home1.jpg')"
+      ></div>
+      <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+        <h2>All type of activities</h2>
+        <p class="lead mb-0">
+          All your activities in one place.The major DB of activities in the
+          world
+        </p>
+      </div>
+    </div>
+    <div class="row no-gutters">
+      <div
+        class="col-lg-6 text-white showcase-img"
+        style="background-image: url('../../../assets/img/home2.jpg')"
+      ></div>
+      <div class="col-lg-6 my-auto showcase-text">
+        <h2>Ever connected</h2>
+        <p class="lead mb-0">
+          Visio Green Rider in your computer or mobile ios<i
+            class="fab fa-apple"
+          ></i>
+          or Android <i class="fab fa-android"></i>
+        </p>
+      </div>
+    </div>
+    <div class="row no-gutters">
+      <div
+        class="col-lg-6 order-lg-2 text-white showcase-img"
+        style="background-image: url('../../../assets/img/home3.jpg')"
+      ></div>
+      <div class="col-lg-6 order-lg-1 my-auto showcase-text">
+        <h2>Private &amp; Secure</h2>
+        <p class="lead mb-0">
+          We don't sent or sell your information, also we don't share this
+          information with others.
+        </p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Call to Action -->
+<section class="call-to-action text-white text-center">
+  <div class="overlay"></div>
+  <div class="container">
+    <div class="row">
+      <div class="col-xl-9 mx-auto">
+        <h2 class="mb-4">Register in our newsletter!</h2>
+      </div>
+      <!-- Newsletter form -->
+      <div class="col-md-10 col-lg-8 col-xl-7 mx-auto formulario">
+        <form
+          [formGroup]="newsletter"
+          (ngSubmit)="addNewsletter()"
+          method="post"
+          novalidate
+        >
+          <div class="form-group">
+            <label>Name</label>
+            <input
+              type="text"
+              name="FNAME"
+              formControlName="name"
+              class="form-control"
+              placeholder="Name"
+              id="mce-FNAME"
+            />
+          </div>
+          <div class="form-group">
+            <label>Surname</label>
+            <input
+              type="text"
+              name="LNAME"
+              formControlName="surname"
+              class="form-control"
+              placeholder="Surname"
+              id="mce-LNAME"
+            />
+          </div>
+          <div class="form-group">
+            <label>Email</label>
+            <input
+              type="email"
+              class="form-control"
+              name="EMAIL"
+              formControlName="email"
+              a-describedby="emailHelp"
+              placeholder="Email"
+              id="mce-EMAIL"
+            />
+          </div>
+
+          <button
+            type="submit"
+            name="subscribe"
+            [disabled]="!newsletter.valid"
+            id="mc-embedded-subscribe"
+            class="btn btn-primary"
+          >
+            Register
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</section>

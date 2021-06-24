@@ -1,0 +1,14 @@
+<div class="row animated fadeIn fast" *ngIf="routeInfo.length == 0">
+  <div class="col-md-12">
+    <div class="alert alert-danger" role="alert">
+      the word: <span>{{ word }}</span> doesn't have any result.
+    </div>
+  </div>
+  <div class="container" style="height: 75vh"></div>
+</div>
+
+<app-route-card
+  [route]="item"
+  (selectedRoute)="showRoute(item.id)"
+  *ngFor="let item of routeInfo; let i = index"
+></app-route-card>

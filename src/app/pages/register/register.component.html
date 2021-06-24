@@ -1,0 +1,94 @@
+<div class="align-content-center">
+  <div class="container">
+    <br />
+    <br />
+    <h1>Register <small>Green rider</small></h1>
+    <br />
+    <div class="row text-right">
+      <button
+        type="button"
+        (click)="goBack()"
+        class="btn btn-outline-danger text-right"
+      >
+        <i class="fas fa-chevron-circle-left"></i>Go back
+      </button>
+    </div>
+    <br />
+    <br />
+    <div class="row animated fadeIn faster">
+      <div class="col">
+        <form [formGroup]="registerForm" (ngSubmit)="register()">
+          <div class="form-group">
+            <label for="exampleInputEmail1">Email address</label>
+            <div
+              *ngIf="
+                !registerForm.get('email').valid &&
+                registerForm.get('email').touched
+              "
+              style="color: red"
+            >
+              Email is required.
+            </div>
+            <input
+              [ngClass]="{
+                'has-danger':
+                  !registerForm.get('email').valid &&
+                  registerForm.get('email').touched
+              }"
+              type="email"
+              name="email"
+              formControlName="email"
+              class="form-control"
+              id="exampleInputEmail1"
+              aria-describedby="emailHelp"
+              placeholder="Introduce tu e-mail"
+            />
+          </div>
+          <div class="form-group">
+            <label for="exampleInputPassword1">Password</label>
+            <div
+              *ngIf="
+                !registerForm.get('password').valid &&
+                registerForm.get('password').touched
+              "
+              style="color: red"
+            >
+              Password is required
+            </div>
+            <input
+              [ngClass]="{
+                'has-danger':
+                  !registerForm.get('password').valid &&
+                  registerForm.get('password').touched
+              }"
+              type="password"
+              name="password"
+              formControlName="password"
+              class="form-control"
+              id="exampleInputPassword1"
+              placeholder="Contraseña"
+            />
+          </div>
+          <div class="form-group form-check">
+            <input
+              formControlName="remember"
+              type="checkbox"
+              class="form-check-input"
+              id="exampleCheck1"
+            />
+            <label class="form-check-label" for="exampleCheck1"
+              >Remember me</label
+            >
+          </div>
+          <button
+            type="submit"
+            class="btn btn-primary"
+            [disabled]="!registerForm.valid"
+          >
+            Register
+          </button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>

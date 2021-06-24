@@ -1,0 +1,41 @@
+<section id="tarjet" class="Tarjetas">
+  <article class="primero">
+    <div class="contenedorTarjeta level-1">
+      <div class="foto">
+        <img [src]="route.image" width="500px" alt="Ruta imagen" />
+      </div>
+
+      <div class="contenido">
+        <h1 class="tituloTarjeta h1-responsive">{{ route.name }}</h1>
+
+        <div class="detalles">
+          <div class="distancia">
+            <i class="fas fa-route"></i>
+            <p>{{ route.distance }}</p>
+          </div>
+          <div class="dificult">
+            <i class="fas fa-exclamation-triangle"></i>
+
+            <p>{{ route.difficult }}</p>
+          </div>
+
+          <div class="duration">
+            <i class="far fa-clock"></i>
+            <p>{{ route.duration }}</p>
+          </div>
+        </div>
+        <p>{{ route.description }}</p>
+        <button
+          mdbBtn
+          type="button"
+          color="primary"
+          outline="true"
+          mdbWavesEffect
+          (click)="showRoute()"
+        >
+          Show details
+        </button>
+      </div>
+    </div>
+  </article>
+</section>

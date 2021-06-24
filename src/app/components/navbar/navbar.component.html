@@ -1,0 +1,161 @@
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a [routerLink]="['/dashboard']">
+    <img
+      src="../../../../assets/img/logo_principal.png"
+      width="60px"
+      alt=""
+      srcset=""
+    />
+  </a>
+  <button
+    class="navbar-toggler"
+    type="button"
+    data-toggle="collapse"
+    data-target="#navbarSupportedContent"
+    aria-controls="navbarSupportedContent"
+    aria-expanded="false"
+    aria-label="Toggle navigation"
+  >
+    <span class="navbar-toggler-icon"></span>
+  </button>
+
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a
+          class="nav-link"
+          [routerLink]="['/home']"
+          routerLinkActive="router-link-active"
+          >Home<span class="sr-only">(current)</span></a
+        >
+      </li>
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          [routerLink]="['/routes']"
+          routerLinkActive="router-link-active"
+          >Routes</a
+        >
+      </li>
+
+      <li class="nav-item dropdown" *ngIf="!logged">
+        <a
+          class="nav-link dropdown-toggle"
+          id="navbarDropdown"
+          role="button"
+          data-toggle="dropdown"
+          aria-haspopup="true"
+          aria-expanded="false"
+        >
+          Login / Sign Up
+        </a>
+
+        <div class="dropdown-menu">
+          <form class="px-4 py-3" [formGroup]="loginForm" (ngSubmit)="login()">
+            <div class="form-group">
+              <label for="exampleDropdownFormEmail1">Email</label>
+              <div
+                *ngIf="
+                  !loginForm.get('email').valid &&
+                  loginForm.get('email')?.touched
+                "
+                style="color: red"
+              >
+                Email is required
+              </div>
+              1
+              <input
+                [ngClass]="{
+                  'has-danger':
+                    !loginForm.get('email').valid &&
+                    loginForm.get('email')?.touched
+                }"
+                type="email"
+                class="form-control"
+                id="exampleDropdownFormEmail1"
+                name="correo"
+                formControlName="email"
+                placeholder="Email"
+              />
+            </div>
+            <div class="form-group">
+              <label for="pass1">Password</label>
+              <div
+                *ngIf="
+                  !loginForm.get('password').valid &&
+                  loginForm.get('password').touched
+                "
+                style="color: red"
+              >
+                Password is required
+              </div>
+
+              <input
+                [ngClass]="{
+                  'has-danger':
+                    !loginForm.get('password').valid &&
+                    loginForm.get('password').touched
+                }"
+                type="password"
+                class="form-control"
+                id="pass1"
+                name="correo"
+                formControlName="password"
+                placeholder="Password"
+              />
+            </div>
+            <button type="submit" class="btn btn-primary">Sign In</button>
+          </form>
+          <div class="dropdown-divider"></div>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" [routerLink]="['/register']"
+            >Don't have an account, register now!</a
+          >
+        </div>
+      </li>
+
+      <li class="nav-item">
+        <a
+          class="nav-link"
+          href="#"
+          [routerLink]="['/addActivity']"
+          *ngIf="logged"
+          tabindex="-1"
+          >Add new activity<i class="fas fa-plus"></i
+        ></a>
+      </li>
+    </ul>
+    <span class="separador"></span>
+
+    <a
+      class="nav-link"
+      style="color: red"
+      (click)="logout()"
+      tabindex="-1"
+      *ngIf="logged"
+      >Logout<i class="fas fa-sign-out-alt"></i
+    ></a>
+
+    <form
+      #f="ngForm"
+      class="form-inline my-2 my-lg-0"
+      (ngSubmit)="onSearch(f.value)"
+    >
+      <input
+        class="search form-control mr-sm-2"
+        name="search"
+        [formControl]="searchForm"
+        type="search"
+        placeholder="Search"
+        aria-label="Search"
+      />
+      <button
+        class="btn btn-outline-success my-2 my-sm-0"
+        [disabled]="!searchForm.valid"
+        type="submit"
+      >
+        Search
+      </button>
+    </form>
+  </div>
+</nav>

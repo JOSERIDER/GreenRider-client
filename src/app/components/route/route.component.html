@@ -1,0 +1,188 @@
+<br />
+<br />
+<!-- Page Content -->
+<div class="container">
+  <div class="col-lg-9">
+    <div class="card mt-4 contenedor">
+      <iframe
+        *ngIf="routeLength.length !== 0"
+        width="800"
+        height="400"
+        frameborder="0"
+        style="border: 0"
+        [src]="validUrl"
+        allowfullscreen
+      ></iframe>
+
+      <img
+        src="../../../assets/img/no_aviable_map.png"
+        *ngIf="routeLength.length === 0"
+        alt="Map no aviable"
+      />
+      <div class="card-body">
+        <h3 class="card-title">{{ route.name }}</h3>
+
+        <div class="detalles row justify-content-around">
+          <div>
+            <i class="fas fa-route"></i>
+            <h4>{{ route.distance }}</h4>
+          </div>
+
+          <div>
+            <i class="fas fa-exclamation-triangle"></i>
+            <p>{{ route.difficult }}</p>
+          </div>
+
+          <div>
+            <i class="far fa-clock"></i>
+            <p>{{ route.duration }}</p>
+          </div>
+        </div>
+        <hr />
+        <h3>Description:</h3>
+        <br />
+        <p class="card-text">{{ route.description }}</p>
+        <span class="text-warning"
+          >&#9733; &#9733; &#9733; &#9734; &#9734;</span
+        >
+        4.0 stars
+      </div>
+    </div>
+
+    <div class="card mt-4 p-md-5 contenedor">
+      <div
+        class="alert alert-success"
+        *ngIf="comments.length === 0"
+        role="alert"
+      >
+        Be the first in comment!
+      </div>
+      <h2>Add your comment:</h2>
+
+      <div class="form-group">
+        <form action="" [formGroup]="commentForm" (ngSubmit)="newComment()">
+          <p>User name:</p>
+          <div
+            class="error"
+            *ngIf="
+              !commentForm.get('user').valid && commentForm.get('user').touched
+            "
+          >
+            Name is required
+          </div>
+          <div class="input-group flex-nowrap">
+            <div class="input-group-prepend">
+              <span class="input-group-text" id="addon-wrapping"
+                ><i class="fas fa-user"></i
+              ></span>
+            </div>
+            <input
+              type="text"
+              class="form-control"
+              formControlName="usuario"
+              placeholder="Nombre de usuario"
+              aria-label="Username"
+              aria-describedby="addon-wrapping"
+            />
+          </div>
+          <br />
+
+          <label>Comment title:</label>
+          <div
+            class="error"
+            *ngIf="
+              !commentForm.get('title').valid &&
+              commentForm.get('title').touched
+            "
+          >
+            Title is incorrect
+          </div>
+
+          <input
+            type="text"
+            class="form-control"
+            formControlName="titulo"
+            placeholder="Título del comentario"
+          />
+          <br />
+          <div class="md-textarea-auto">
+            <p>Comment:</p>
+            <div
+              class="error"
+              *ngIf="
+                commentForm.get('comment').hasError('minlength') &&
+                commentForm.get('comment').touched
+              "
+            >
+              At least must have 10 characters of length
+            </div>
+
+            <textarea
+              formControlName="comentario"
+              rows="7"
+              cols="50"
+              autoResize="autoResize"
+            ></textarea>
+          </div>
+          <br />
+
+          <div class="form-group form-check">
+            <input
+              (change)="validatePrivacy($event.target['checked'])"
+              type="checkbox"
+              class="form-check-input"
+              id="exampleCheck1"
+            />
+            <label class="form-check-label" for="exampleCheck1"
+              >I accept the
+              <a style="color: blue" (click)="showPrivacity()"
+                >private policy</a
+              >
+              and the
+              <a (click)="showConditions()" style="color: blue"
+                >terms and conditions</a
+              >
+            </label>
+          </div>
+          <br />
+          <button
+            class="btn btn-primary"
+            [disabled]="!commentForm.valid || !privacityControl"
+            type="submit"
+          >
+            Sent <i class="fas fa-paper-plane"></i>
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <div class="card mt-4 p-md-5 contenedor">
+      <h2>Comments:</h2>
+      <br />
+      <div class="alert alert-danger" role="alert" *ngIf="comments.length === 0">
+        No comments yet :(
+      </div>
+      <div class="row" *ngFor="let comment of comments">
+        <div class="col-2">
+          <img
+            src="../../../assets/img/user_coment.png"
+            width="30px"
+            alt="usuario"
+          />
+          <p>User: {{ comment.name }}</p>
+        </div>
+
+        <div class="col p-2 comentario-text" style="border: 1px solid black">
+          <h4>{{ comment.title }}</h4>
+          <p>{{ comment.content }}</p>
+        </div>
+        <i
+          class="fas fa-trash-alt p-2"
+          (click)="deleteComment(comment.id)"
+          style="color: red"
+        ></i>
+      </div>
+    </div>
+  </div>
+</div>
+<br />

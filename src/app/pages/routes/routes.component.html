@@ -1,0 +1,40 @@
+<div class="container">
+  <br />
+  <h3>Search filters:</h3>
+  <br />
+  <form [formGroup]="filterFrom" (ngSubmit)="filterDifficult()">
+    <select class="form-control" formControlName="difficult">
+      <option value="0">Todos</option>
+      <option value="1">Easy</option>
+      <option value="2">Medium</option>
+      <option value="3">difficult</option>
+    </select>
+    <br />
+    <select class="form-control" formControlName="duration">
+      <option value="0">No filters</option>
+      <option value="2h">2 hours or less</option>
+      <option value="3h">3 hours or less</option>
+      <option value="4h">4 hours or less</option>
+      <option value="4h+">4 hours or less</option>
+    </select>
+    <br />
+    <button type="submit" [disabled]="!filterFrom.valid" class="btn btn-light">
+      Filter
+    </button>
+    <button
+      type="button"
+      (click)="restoreFilters()"
+      [disabled]="!filterFrom.valid"
+      class="btn btn-light text-right"
+    >
+      Restore filters
+    </button>
+  </form>
+</div>
+<br />
+<app-route-card
+  [route]="item"
+  (selectedRoute)="showRoute($event)"
+  *ngFor="let item of routes"
+>
+</app-route-card>

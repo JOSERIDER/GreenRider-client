@@ -1,0 +1,150 @@
+<br />
+<br />
+<br />
+<br />
+<div class="row main-page">
+  <h1>Create new activity</h1>
+
+  <form (ngSubmit)="saveActivity()" [formGroup]="activityForm">
+    <!--Titulo de la actividad-->
+    <div class="form-group">
+      <label for="tituloActividad">Activity title</label>
+
+      <div
+        style="color: red"
+        *ngIf="
+          !activityForm.get('titulo').valid &&
+          activityForm.get('titulo').touched
+        "
+      >
+        Title is required
+      </div>
+      <input
+        formControlName="titulo"
+        [ngClass]="{ 'has-danger': activityForm.get('title').valid }"
+        type="text"
+        class="form-control p-0"
+        id="tituloActividad"
+        placeholder="Ciclismo por la mañana"
+      />
+    </div>
+
+    <!--Distancia a actividad-->
+    <div class="form-group">
+      <label for="distanciaActividad">Distance</label>
+      <div
+        style="color: red"
+        *ngIf="
+          !activityForm.get('distanciaValor').valid &&
+          activityForm.get('distanciaValor').touched
+        "
+      >
+       Distance is required
+      </div>
+      <div class="row">
+        <div class="col-6 p-0">
+          <input
+            style="padding: 0"
+            formControlName="distanciaValor"
+            type="number"
+            min="0.01"
+            step="0.1"
+            max="9999"
+            class="form-control"
+            id="distanciaActividad"
+          />
+        </div>
+        <div class="col-6 p-0">
+          <select
+            formControlName="unidad"
+            class="form-control"
+            id="distanciaUnidad"
+          >
+            <option selected value="KM">Kilometers</option>
+            <option value="M">Meters</option>
+            <option value="mi">Miles</option>
+            <option value="ya">Yards</option>
+          </select>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="dificultadActividad">Difficult</label>
+      <select
+        formControlName="dificultad"
+        class="form-control"
+        id="dificultadActividad"
+      >
+        <option value="Easy">Easy</option>
+        <option value="Medium">Medium</option>
+        <option value="Difficult">Difficult</option>
+        <option value="Extreme">Extreme</option>
+      </select>
+    </div>
+    <!--Duración de actividad-->
+    <div class="form-group">
+      <label>Duration</label>
+      <div
+        style="color: red"
+        *ngIf="
+          !activityForm.get('hours').valid && activityForm.get('hours').touched
+        "
+      >
+        Duration is required
+      </div>
+
+      <div class="row">
+        <div class="col-6 p-0">
+          <div class="contenedor">
+            <input
+              formControlName="hora"
+              type="number"
+              class="form-control"
+              id="horaActividad"
+            />
+
+            <label for="horaActividad">
+              <abbr title="hora" class="p-3">h</abbr>
+            </label>
+          </div>
+        </div>
+
+        <div class="col-6 p-0">
+          <div class="contenedor">
+            <input
+              type="number"
+              formControlName="minuto"
+              class="form-control"
+              id="minutoActividad"
+            />
+
+            <label for="horaActividad">
+              <abbr title="minuto" class="p-3">min</abbr>
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label for="decripActividad">Activity description</label>
+      <textarea
+        class="form-control"
+        formControlName="descripcion"
+        id="decripActividad"
+        rows="3"
+        cols="7"
+      ></textarea>
+    </div>
+
+    <button
+      type="submit"
+      [disabled]="!activityForm.valid"
+      class="btn btn-outline-success w-100"
+    >
+      Save activity <i class="far fa-save"></i>
+    </button>
+  </form>
+</div>
+<div class="container" style="height: 25vh"></div>
