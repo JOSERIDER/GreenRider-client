@@ -25,7 +25,7 @@ export class RoutesComponent implements OnInit {
   }
 
   async showRoute(routeId: number): Promise<void> {
-    await this.router.navigate(["/ruta", routeId]);
+    await this.router.navigate(["/route", routeId]);
   }
 
   async restoreFilters() {

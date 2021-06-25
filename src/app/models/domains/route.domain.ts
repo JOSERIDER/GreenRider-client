@@ -1,3 +1,5 @@
+import { Comment } from "./comment.domain";
+
 export interface Route {
   id?: number;
   image?: string;
@@ -9,4 +11,5 @@ export interface Route {
   distance?: number;
   mapUrl?: string;
   img?: string;
+  comments?:Comment[];
 }

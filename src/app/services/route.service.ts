@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Route } from '../models/domains/route.domain';
-import { HttpClientInterface, HttpRequestParamsInterface } from '../models/http-client';
+import { HttpRequestParamsInterface } from '../models/http-client';
 import {
   RouteApiClientInterface,
   RouteApiClientUrlInterface,
@@ -29,8 +29,7 @@ export class RouteService implements RouteApiClientInterface {
 
   get(id: string): Promise<Route> {
     const params: HttpRequestParamsInterface = {
-      url: this.routeParams.routes,
-      payload: { id },
+      url: `${this.routeParams.routes}/${id}`,
     };
 
     return this.httpClient.get(params);

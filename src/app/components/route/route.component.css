@@ -1,0 +1,26 @@
+body {
+    background: linear-gradient(90deg, #e3ffe7 0%, #d9e7ff 100%);
+}
+
+.contenedor,
+iframe {
+    border-radius: 10px;
+}
+
+textarea {
+    resize: none;
+}
+
+.error {
+    color: red;
+}
+
+form .ng-invalid.ng-touched,
+.ng-invalid.ng-dirty {
+    border-bottom: 3px solid red;
+}
+
+.comentario-text {
+    border-radius: 10px;
+    margin-bottom: 10px;
+}

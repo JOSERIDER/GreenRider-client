@@ -14,11 +14,11 @@ import { RoutesComponent } from './pages/routes/routes.component';
 import { RouteComponent } from './components/route/route.component';
 import { CreateActivityComponent } from './pages/create-activity/create-activity.component';
 import { RegisterComponent } from './pages/register/register.component';
-import { HttpClient, HttpClientModule } from '@angular/common/http';
+import { HttpClientModule } from '@angular/common/http';
 import { RouteService } from './services/route.service';
-import { HttpClientInterface } from './models/http-client';
 import { HttpClientService } from './services/http-client.service';
-import { RouteApiClientUrlInterface } from './models/api-client/route';
+import { CommentCreatorComponent } from './components/route/comment-creator/comment-creator.component';
+import { CommentListComponent } from './components/route/comment-list/comment-list.component';
 
 @NgModule({
   declarations: [
@@ -32,6 +32,8 @@ import { RouteApiClientUrlInterface } from './models/api-client/route';
     RouteComponent,
     CreateActivityComponent,
     RegisterComponent,
+    CommentCreatorComponent,
+    CommentListComponent,
   ],
   imports: [
     BrowserModule,

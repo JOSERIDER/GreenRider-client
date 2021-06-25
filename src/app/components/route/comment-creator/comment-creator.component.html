@@ -1,0 +1,106 @@
+<div class="card mt-4 p-md-5 contenedor">
+    <div
+            class="alert alert-success"
+            *ngIf="showDialog"
+            role="alert"
+    >
+        Be the first in comment!
+    </div>
+
+    <h2>Add your comment:</h2>
+    <div class="form-group">
+        <form action="" [formGroup]="commentForm" (ngSubmit)="newComment()">
+            <p>User name:</p>
+            <div
+                    class="error"
+                    *ngIf="
+              !commentForm.get('user').valid && commentForm.get('user').touched
+            "
+            >
+                Name is required
+            </div>
+            <div class="input-group flex-nowrap">
+                <div class="input-group-prepend">
+              <span class="input-group-text" id="addon-wrapping"
+              ><i class="fas fa-user"></i
+              ></span>
+                </div>
+                <input
+                        type="text"
+                        class="form-control"
+                        formControlName="user"
+                        placeholder="User name"
+                        aria-label="Username"
+                        aria-describedby="addon-wrapping"
+                />
+            </div>
+            <br/>
+
+            <label>Comment title:</label>
+            <div
+                    class="error"
+                    *ngIf="
+              !commentForm.get('title').valid &&
+              commentForm.get('title').touched
+            "
+            >
+                Title is incorrect
+            </div>
+
+            <input
+                    type="text"
+                    class="form-control"
+                    formControlName="title"
+                    placeholder="Título del comentario"
+            />
+            <br/>
+            <div class="md-textarea-auto">
+                <p>Comment:</p>
+                <div
+                        class="error"
+                        *ngIf="
+                commentForm.get('comment').hasError('minlength') &&
+                commentForm.get('comment').touched
+              "
+                >
+                    At least must have 10 characters of length
+                </div>
+
+                <textarea
+                        formControlName="comment"
+                        rows="7"
+                        cols="50"
+                        autoResize="autoResize"
+                ></textarea>
+            </div>
+            <br/>
+
+            <div class="form-group form-check">
+                <input
+                        (change)="validatePrivacy($event.target['checked'])"
+                        type="checkbox"
+                        class="form-check-input"
+                        id="exampleCheck1"
+                />
+                <label class="form-check-label" for="exampleCheck1">
+                    I accept the
+                    <a style="color: blue" (click)="showPrivacity()">
+                        private policy
+                    </a>
+                    and the
+                    <a (click)="showConditions()" style="color: blue">
+                        terms and conditions
+                    </a>
+                </label>
+            </div>
+            <br/>
+            <button
+                    class="btn btn-primary"
+                    [disabled]="!commentForm.valid || !privacityControl"
+                    type="submit"
+            >
+                Sent <i class="fas fa-paper-plane"></i>
+            </button>
+        </form>
+    </div>
+</div>
