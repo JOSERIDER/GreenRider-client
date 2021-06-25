@@ -3,61 +3,12 @@
 <!-- Page Content -->
 <div class="container">
     <div class="col-lg-9">
-        <div class="card mt-4 contenedor">
-            <iframe
-                    *ngIf="route.mapUrl"
-                    width="800"
-                    height="400"
-                    frameborder="0"
-                    style="border: 0"
-                    [src]="validUrl"
-                    allowfullscreen
-            ></iframe>
 
-            <img
-                    src="assets/img/no_available_map.png"
-                    *ngIf="!route.img"
-                    alt="Map no available"
-            />
-            <img
-                    [src]="route.img"
-                    *ngIf="route.img"
-                    alt="Map no available"
-            />
-            <div class="card-body">
-                <h3 class="card-title">{{ route.name }}</h3>
+        <app-route-content [route]="route" ></app-route-content>
 
-                <div class="detalles row justify-content-around">
-                    <div>
-                        <i class="fas fa-route"></i>
-                        <h4>{{ route.distance }}</h4>
-                    </div>
-
-                    <div>
-                        <i class="fas fa-exclamation-triangle"></i>
-                        <p>{{ route.difficult }}</p>
-                    </div>
-
-                    <div>
-                        <i class="far fa-clock"></i>
-                        <p>{{ route.duration }}</p>
-                    </div>
-                </div>
-                <hr/>
-                <h3>Description:</h3>
-                <br/>
-                <p class="card-text">{{ route.description }}</p>
-                <span class="text-warning"
-                >&#9733; &#9733; &#9733; &#9734; &#9734;</span
-                >
-                4.0 stars
-            </div>
-        </div>
-
-        <app-comment-creator [showDialog]="route.comments.length === 0"></app-comment-creator>
+        <app-comment-creator [showDialog]="!route.comments"></app-comment-creator>
 
         <app-comment-list [comments]="route.comments"></app-comment-list>
-
     </div>
 </div>
 <br/>

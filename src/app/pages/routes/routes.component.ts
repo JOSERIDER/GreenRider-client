@@ -55,6 +55,5 @@ export class RoutesComponent implements OnInit {
 
   async updateRoutes() {
     this.routes = await this.routeService.getRoutes();
-    console.log(await this.routeService.getRoutes())
   }
 }

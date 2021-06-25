@@ -15,7 +15,6 @@ export class RouteService implements RouteApiClientInterface {
     this.routeParams = {
       routes: 'routes',
     };
-    console.log(httpClient instanceof HttpClientService)
   }
 
   getRoutes(): Promise<Route[]> {

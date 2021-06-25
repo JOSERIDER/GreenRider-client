@@ -1,7 +1,7 @@
 <div class="card mt-4 p-md-5 contenedor">
     <h2>Comments:</h2>
     <br/>
-    <div class="alert alert-danger" role="alert" *ngIf="comments.length === 0">
+    <div class="alert alert-danger" role="alert" *ngIf="comments">
         No comments yet :(
     </div>
     <div class="row" *ngFor="let comment of comments">

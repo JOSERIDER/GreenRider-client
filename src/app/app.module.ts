@@ -19,6 +19,7 @@ import { RouteService } from './services/route.service';
 import { HttpClientService } from './services/http-client.service';
 import { CommentCreatorComponent } from './components/route/comment-creator/comment-creator.component';
 import { CommentListComponent } from './components/route/comment-list/comment-list.component';
+import { RouteContentComponent } from './components/route/route-content/route-content.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +35,7 @@ import { CommentListComponent } from './components/route/comment-list/comment-li
     RegisterComponent,
     CommentCreatorComponent,
     CommentListComponent,
+    RouteContentComponent,
   ],
   imports: [
     BrowserModule,

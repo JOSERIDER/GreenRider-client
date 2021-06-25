@@ -13,7 +13,7 @@ export class CommentListComponent implements OnInit {
   @Input() comments:Comment[];
   loggedIn: boolean;
 
-  constructor( private guard: AuthGuard) { }
+  constructor(private guard: AuthGuard) {}
 
   ngOnInit(): void {
   }
