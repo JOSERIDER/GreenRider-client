@@ -2,6 +2,7 @@ import { Component, Input, OnInit } from '@angular/core';
 import { Comment } from "../../../models/domains/comment.domain";
 import Swal from "sweetalert2";
 import { AuthGuard } from "../../../guards/auth.guard";
+import { UserService } from "../../../services/user.service";
 
 @Component({
   selector: 'app-comment-list',
@@ -13,13 +14,14 @@ export class CommentListComponent implements OnInit {
   @Input() comments:Comment[];
   loggedIn: boolean;
 
-  constructor(private guard: AuthGuard) {}
+  constructor(private userService: UserService) {}
 
   ngOnInit(): void {
   }
 
   deleteComment(id: string): void {
-    this.loggedIn = this.guard.authenticated;
+    this.loggedIn = !!this.userService.user;
+
     if (!this.loggedIn) {
       void Swal.fire({
         icon: "error",

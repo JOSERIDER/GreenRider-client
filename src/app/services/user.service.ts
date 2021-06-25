@@ -14,6 +14,7 @@ import { CookieService } from "ngx-cookie-service";
 export class UserService implements UserApiClientInterface {
   private userApiUrl: UserApiClientUrlInterface;
 
+  user: User;
   constructor(
     private httpClient: HttpClientService,
     private cookieService: CookieService
@@ -24,16 +25,20 @@ export class UserService implements UserApiClientInterface {
       signUp: "auth/sign-up",
       user: "user",
     };
+    this.user = {};
   }
 
-  get(): Promise<User> {
+  async get(): Promise<User> {
     const token = this.cookieService.get("token")
     const params: HttpRequestParamsInterface = {
       url: this.userApiUrl.login,
       headers: { token },
     };
 
-    return this.httpClient.get(params);
+    const user  = await this.httpClient.get(params);
+    this.user = user;
+
+    return user;
   }
 
   login(email: string, password: string): Promise<User> {
@@ -50,7 +55,7 @@ export class UserService implements UserApiClientInterface {
         }
         this.set(token);
         resolve(response.user);
-      });
+      }).catch(reject);
     });
   }
 
@@ -74,6 +79,16 @@ export class UserService implements UserApiClientInterface {
       payload: { user },
     };
 
-    return this.httpClient.post(params);
+    return new Promise<User>((resolve, reject) => {
+      this.httpClient.post(params).then((response: any) => {
+        const token = response.token;
+        if (!token) {
+          throw new Error("Response must contains token property");
+        }
+        this.set(token);
+        this.user = response.user;
+        resolve(response.user);
+      }).catch(reject);
+    });
   }
 }
