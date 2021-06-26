@@ -1,6 +1,6 @@
 import { Component, OnInit } from "@angular/core";
 import { CookieService } from "ngx-cookie-service";
-import { UserService } from "./services/user.service";
+import { AuthService } from "./services/auth.service";
 
 @Component({
   selector: "app-root",
@@ -10,7 +10,7 @@ import { UserService } from "./services/user.service";
 export class AppComponent implements OnInit {
   isRegister = false;
 
-  constructor(private cookieService: CookieService, private userService: UserService) {
+  constructor(private cookieService: CookieService, private userService: AuthService) {
   }
 
   ngOnInit(): void {

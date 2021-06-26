@@ -17,11 +17,21 @@ export class RouteService implements RouteApiClientInterface {
     };
   }
 
+
+
   getRoutes(): Promise<Route[]> {
     const params: HttpRequestParamsInterface = {
       url: this.routeParams.routes,
     };
 
+    return this.httpClient.get(params);
+  }
+
+  getFilterRoutes(difficult: string, duration:string): Promise<Route[]> {
+    const params: HttpRequestParamsInterface = {
+      url: this.routeParams.routes,
+      payload: {difficult, duration}
+    };
 
     return this.httpClient.get(params);
   }

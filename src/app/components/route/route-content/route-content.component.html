@@ -11,12 +11,7 @@
 
     <img
             src="assets/img/no_available_map.png"
-            *ngIf="!route.img"
-            alt="Map no available"
-    />
-    <img
-            [src]="route.img"
-            *ngIf="route.img"
+            *ngIf="!route.mapUrl && !route.img"
             alt="Map no available"
     />
     <div class="card-body">

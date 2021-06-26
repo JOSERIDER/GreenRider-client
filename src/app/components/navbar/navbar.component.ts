@@ -1,7 +1,7 @@
 import { Component } from "@angular/core";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
-import { UserService } from "../../services/user.service";
+import { AuthService } from "../../services/auth.service";
 import Swal from "sweetalert2";
 
 @Component({
@@ -14,7 +14,7 @@ export class NavbarComponent {
   loginForm: FormGroup;
   logged = false;
 
-  constructor(private router: Router, private userService: UserService) {
+  constructor(private router: Router, private userService: AuthService) {
     this.searchForm = new FormControl("");
     this.loginForm = new FormGroup({
       email: new FormControl("", [Validators.email, Validators.required]),

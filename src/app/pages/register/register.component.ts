@@ -4,7 +4,7 @@ import { Router } from "@angular/router";
 import { AppComponent } from "../../app.component";
 import Swal from "sweetalert2";
 import { User } from "../../models/domains/user.domain";
-import { UserService } from "../../services/user.service";
+import { AuthService } from "../../services/auth.service";
 
 @Component({
   selector: "app-register",
@@ -16,7 +16,7 @@ export class RegisterComponent {
   remember: boolean;
 
   constructor(
-    private userService: UserService,
+    private userService: AuthService,
     private router: Router,
     private component: AppComponent
   ) {
