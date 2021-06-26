@@ -1,21 +1,28 @@
-import { Injectable } from '@angular/core';
+import { Injectable } from "@angular/core";
 import {
   HttpClientInterface,
   HttpRequestParamsInterface,
-} from '../models/http-client';
-import { HttpClient, HttpHeaders } from '@angular/common/http';
-import { environment } from '../../environments/environment';
-import { Route } from "../models/domains/route.domain";
+} from "../models/http-client";
+import { HttpClient, HttpHeaders } from "@angular/common/http";
+import { environment } from "../../environments/environment";
+import { CookieService } from "ngx-cookie-service";
 
 @Injectable({
-  providedIn: 'root',
+  providedIn: "root",
 })
 export class HttpClientService implements HttpClientInterface {
-  constructor(private httpClient: HttpClient) {}
+  constructor(
+    private httpClient: HttpClient,
+    private cookieService: CookieService
+  ) {}
 
   get<T>(params: HttpRequestParamsInterface): Promise<T> {
+    const config = {
+      params: params.payload ? params.payload : null,
+      headers: params.headers ? new HttpHeaders(params.headers) : null,
+    };
+
     return new Promise<T>((resolve, reject) => {
-      const config = { params: params.payload ? params.payload : null };
       this.httpClient
         .get(`${environment.apiUrl}/${params.url}`, config)
         .toPromise()
@@ -27,14 +34,17 @@ export class HttpClientService implements HttpClientInterface {
   }
 
   post<T>(params: HttpRequestParamsInterface): Promise<T> {
+    const userToken: string = this.cookieService.get(environment.tokenKey);
+
+    const config = {
+      body: params.payload ? params.payload : null,
+      headers: new HttpHeaders({ authorization: `Bearer ${userToken}` }),
+    };
+
     return new Promise<T>((resolve, reject) => {
       this.httpClient
-        .post(`${environment.apiUrl}/${params.url}`, {
-          params: { id: params.payload.id, payload: params.payload },
-          headers: new HttpHeaders({
-            //TODO
-            'token ': 'my-auth-token',
-          }),
+        .post(`${environment.apiUrl}/${params.url}`, config.body, {
+          headers: config.headers,
         })
         .toPromise()
         .then((response) => resolve(response as T))
@@ -43,14 +53,17 @@ export class HttpClientService implements HttpClientInterface {
   }
 
   put<T>(params: HttpRequestParamsInterface): Promise<T> {
+    const userToken: string = this.cookieService.get(environment.tokenKey);
+
+    const config = {
+      body: params.payload ? params.payload : null,
+      headers: new HttpHeaders({ authorization: `Bearer ${userToken}` }),
+    };
+
     return new Promise<T>((resolve, reject) => {
       this.httpClient
-        .put(`${environment.apiUrl}/${params.url}`, {
-          params: { id: params.payload.id, payload: params.payload },
-          headers: new HttpHeaders({
-            //TODO
-            'token ': 'my-auth-token',
-          }),
+        .put(`${environment.apiUrl}/${params.url}`, config.body, {
+          headers: config.headers,
         })
         .toPromise()
         .then((response) => resolve(response as T))
@@ -59,13 +72,17 @@ export class HttpClientService implements HttpClientInterface {
   }
 
   async delete(params: HttpRequestParamsInterface): Promise<void> {
+    const userToken: string = this.cookieService.get(environment.tokenKey);
+
+    const config = {
+      params: params.payload ? params.payload : null,
+      headers: new HttpHeaders({ authorization: `Bearer ${userToken}` }),
+    };
+
     await this.httpClient
       .delete(`${environment.apiUrl}/${params.url}`, {
-        params: { id: params.payload.id },
-        headers: new HttpHeaders({
-          //TODO
-          'token ': 'my-auth-token',
-        }),
+        params: config.params,
+        headers: config.headers,
       })
       .toPromise();
 

@@ -12,6 +12,9 @@ export interface RouteApiClientInterface {
    */
   getRoutes(): Promise<Route[]>;
 
+
+  getFilterRoutes(difficult: string, duration: string): Promise<Route[]>;
+
   /**
    * Insert a route in database
    * @param route

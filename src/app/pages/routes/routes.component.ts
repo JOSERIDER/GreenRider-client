@@ -3,6 +3,7 @@ import { Route } from "../../models/domains/route.domain";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { RouteService } from "../../services/route.service";
+import Swal from "sweetalert2";
 
 @Component({
   selector: "app-routes",
@@ -40,15 +41,15 @@ export class RoutesComponent implements OnInit {
   async filterDifficult() {
     const difficult = this.filterFrom.get("difficult")?.value as string;
     const duration = this.filterFrom.get("duration")?.value as string;
-    //TODO Filter in backend.
+
+    this.routes = await this.routeService.getFilterRoutes(difficult, duration);
 
     if (this.routes.length == 0) {
-      //TODO
-      // Swal.fire({
-      //   icon: "error",
-      //   title: "Parece que has filtrado demasiado",
-      //   text: "La búsqueda no ha tenido resultados.",
-      // });
+      await Swal.fire({
+        icon: "error",
+        title: "Parece que has filtrado demasiado",
+        text: "La búsqueda no ha tenido resultados.",
+      });
      await this.updateRoutes();
     }
   }

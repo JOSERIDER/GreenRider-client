@@ -13,30 +13,29 @@ import { AuthService } from "../../services/auth.service";
 })
 export class RegisterComponent {
   registerForm: FormGroup;
-  user: User;
   remember: boolean;
+
   constructor(
-    private authFireBase: AuthService,
+    private userService: AuthService,
     private router: Router,
     private component: AppComponent
   ) {
     this.remember = false;
-    this.user = {};
     this.registerForm = new FormGroup({
       email: new FormControl("", [Validators.required, Validators.email]),
       password: new FormControl("", [
         Validators.required,
         Validators.minLength(5),
       ]),
+      name: new FormControl("", Validators.required),
       remember: new FormControl(),
     });
     this.component.isRegister = true;
   }
 
-  register(): void {
-    //Inicialización de datos al usuario.
-    const remember = this.registerForm.get("remember")?.value as boolean;
-    this.user.email = this.registerForm.get("email")?.value as string;
+  register() {
+    const email = this.registerForm.get("email")?.value as string;
+    const name = this.registerForm.get("name")?.value as string;
     const password = this.registerForm.get("password")?.value as string;
 
     void Swal.fire({
@@ -44,11 +43,37 @@ export class RegisterComponent {
       text: "Wait free...",
     });
     Swal.showLoading();
-    //TODO
+    const user: User = {
+      id: "",
+      name,
+      password,
+      email,
+    };
+    this.userService
+      .signUp(user)
+      .then(() => {
+        console.log("Hola")
+        void Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Register successful",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+        void this.router.navigate(["dashboard"]);
+        this.component.isRegister = false;
+      })
+      .catch((error) => {
+        void Swal.fire({
+          icon: "error",
+          title: "Error",
+          text: error.message,
+        });
+      });
   }
 
   goBack(): void {
     this.component.isRegister = false;
-    void this.router.navigate(["home"]);
+    void this.router.navigate(["/"]);
   }
 }
