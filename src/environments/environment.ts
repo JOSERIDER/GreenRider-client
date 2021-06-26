@@ -5,6 +5,7 @@
 export const environment = {
   production: false,
   apiUrl: "https://api.mocklets.com/p68277",
+  tokenKey: "auth.token",
 };
 
 /*

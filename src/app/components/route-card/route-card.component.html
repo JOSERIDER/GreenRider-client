@@ -2,7 +2,8 @@
   <article class="primero">
     <div class="contenedorTarjeta level-1">
       <div class="foto">
-        <img [src]="route.image" width="500px" alt="Ruta imagen" />
+        <img *ngIf="route.image" [src]="route.image" width="500px" alt="Ruta imagen" />
+        <img *ngIf="!route.image" src="assets/img/default_activity.jpg" width="500px" alt="Ruta imagen" />
       </div>
 
       <div class="contenido">

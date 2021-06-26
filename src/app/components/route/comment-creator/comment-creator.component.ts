@@ -1,22 +1,21 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input } from "@angular/core";
 import { Comment } from "../../../models/domains/comment.domain";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import Swal from "sweetalert2";
+import { CommentService } from "../../../services/comment.service";
 
 @Component({
-  selector: 'app-comment-creator',
-  templateUrl: './comment-creator.component.html',
-  styleUrls: ['./comment-creator.component.css']
+  selector: "app-comment-creator",
+  templateUrl: "./comment-creator.component.html",
+  styleUrls: ["./comment-creator.component.css"],
 })
 export class CommentCreatorComponent {
-
-  @Input()showDialog: boolean;
+  @Input() showDialog: boolean;
 
   commentForm: FormGroup;
   privacityControl = false;
-  comment: Comment;
 
-  constructor() {
+  constructor(private commentService: CommentService) {
     this.commentForm = new FormGroup({
       user: new FormControl("", Validators.required),
       title: new FormControl("", [
@@ -44,12 +43,42 @@ export class CommentCreatorComponent {
   }
 
   newComment(): void {
-    this.comment.name = this.commentForm.get("user")?.value as string;
-    this.comment.title = this.commentForm.get("title")?.value as string;
-    this.comment.content = this.commentForm.get("comment")?.value as string;
+    const name = this.commentForm.get("user")?.value as string;
+    const title = this.commentForm.get("title")?.value as string;
+    const content = this.commentForm.get("comment")?.value as string;
 
     this.commentForm.reset();
-    //TODO Create comment
+    const comment: Comment = {
+      id: "",
+      title,
+      name,
+      content,
+    };
+
+    void Swal.fire({
+      icon: "info",
+      title: "Creating comment...",
+    });
+    Swal.showLoading();
+    this.commentService
+      .create(comment)
+      .then(() => {
+        void Swal.fire({
+          position: "top-end",
+          icon: "success",
+          title: "Comment create",
+          showConfirmButton: false,
+          timer: 1500,
+        });
+      })
+      .catch((error) => {
+        void Swal.fire({
+          icon: "error",
+          title: "Comment no create",
+          text: error.message,
+          showConfirmButton: true,
+        });
+      });
   }
 
   showConditions(): void {

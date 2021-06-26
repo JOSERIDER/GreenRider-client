@@ -20,6 +20,7 @@ import { HttpClientService } from './services/http-client.service';
 import { CommentCreatorComponent } from './components/route/comment-creator/comment-creator.component';
 import { CommentListComponent } from './components/route/comment-list/comment-list.component';
 import { RouteContentComponent } from './components/route/route-content/route-content.component';
+import { CookieService } from "ngx-cookie-service";
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { RouteContentComponent } from './components/route/route-content/route-co
     AppRoutingModule,
   ],
   providers: [
+    CookieService,
     HttpClientService,
     RouteService,
   ],
