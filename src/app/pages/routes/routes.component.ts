@@ -25,7 +25,7 @@ export class RoutesComponent implements OnInit {
     await this.updateRoutes();
   }
 
-  async showRoute(routeId: number): Promise<void> {
+  async showRoute(routeId: string): Promise<void> {
     await this.router.navigate(["/route", routeId]);
   }
 

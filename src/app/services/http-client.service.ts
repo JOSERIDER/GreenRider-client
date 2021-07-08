@@ -17,14 +17,18 @@ export class HttpClientService implements HttpClientInterface {
   ) {}
 
   get<T>(params: HttpRequestParamsInterface): Promise<T> {
+    const userToken: string = this.cookieService.get(environment.tokenKey);
+
     const config = {
       params: params.payload ? params.payload : null,
-      headers: params.headers ? new HttpHeaders(params.headers) : null,
+      headers: params.requireAuthorization
+        ? new HttpHeaders({ Authorization: `${userToken}` })
+        : null,
     };
 
     return new Promise<T>((resolve, reject) => {
       this.httpClient
-        .get(`${environment.apiUrl}/${params.url}`, config)
+        .get(`${environment.apiUrl}/${params.url}`, { ...config })
         .toPromise()
         .then((response) => {
           resolve(response as T);
@@ -38,7 +42,9 @@ export class HttpClientService implements HttpClientInterface {
 
     const config = {
       body: params.payload ? params.payload : null,
-      headers: new HttpHeaders({ authorization: `Bearer ${userToken}` }),
+      headers: params.requireAuthorization
+        ? new HttpHeaders().set("Authorization", userToken)
+        : null,
     };
 
     return new Promise<T>((resolve, reject) => {
@@ -57,7 +63,9 @@ export class HttpClientService implements HttpClientInterface {
 
     const config = {
       body: params.payload ? params.payload : null,
-      headers: new HttpHeaders({ authorization: `Bearer ${userToken}` }),
+      headers: params.requireAuthorization
+        ? new HttpHeaders().set("Authorization", userToken)
+        : null,
     };
 
     return new Promise<T>((resolve, reject) => {
@@ -76,14 +84,13 @@ export class HttpClientService implements HttpClientInterface {
 
     const config = {
       params: params.payload ? params.payload : null,
-      headers: new HttpHeaders({ authorization: `Bearer ${userToken}` }),
+      headers: params.requireAuthorization
+        ? new HttpHeaders({ Authorization: `${userToken}` })
+        : null,
     };
 
     await this.httpClient
-      .delete(`${environment.apiUrl}/${params.url}`, {
-        params: config.params,
-        headers: config.headers,
-      })
+      .delete(`${environment.apiUrl}/${params.url}`, config)
       .toPromise();
 
     return Promise.resolve();

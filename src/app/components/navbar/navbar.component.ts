@@ -3,6 +3,8 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Router } from "@angular/router";
 import { AuthService } from "../../services/auth.service";
 import Swal from "sweetalert2";
+import { CookieService } from "ngx-cookie-service";
+import { environment } from "../../../environments/environment";
 
 @Component({
   selector: "app-navbar",
@@ -14,7 +16,11 @@ export class NavbarComponent {
   loginForm: FormGroup;
   logged = false;
 
-  constructor(private router: Router, private userService: AuthService) {
+  constructor(
+    private router: Router,
+    private userService: AuthService,
+    private cookieService: CookieService
+  ) {
     this.searchForm = new FormControl("");
     this.loginForm = new FormGroup({
       email: new FormControl("", [Validators.email, Validators.required]),
@@ -23,6 +29,7 @@ export class NavbarComponent {
         Validators.minLength(5),
       ]),
     });
+    this.logged = this.cookieService.check(environment.tokenKey);
   }
 
   async onSearch(word: string) {
@@ -48,6 +55,7 @@ export class NavbarComponent {
           showConfirmButton: false,
           timer: 1500,
         });
+        this.logged = true;
       })
       .catch((error) => {
         void Swal.fire({
@@ -74,6 +82,7 @@ export class NavbarComponent {
           showConfirmButton: false,
           timer: 1500,
         });
+        this.logged = false;
       })
       .catch((error) => {
         void Swal.fire({

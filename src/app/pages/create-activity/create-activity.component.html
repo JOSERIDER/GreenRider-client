@@ -6,25 +6,25 @@
   <h1>Create new activity</h1>
 
   <form (ngSubmit)="saveActivity()" [formGroup]="activityForm">
-    <!--Titulo de la actividad-->
+    <!--title de la actividad-->
     <div class="form-group">
-      <label for="tituloActividad">Activity title</label>
+      <label for="titleActividad">Activity title</label>
 
       <div
         style="color: red"
         *ngIf="
-          !activityForm.get('titulo').valid &&
-          activityForm.get('titulo').touched
+          !activityForm.get('title').valid &&
+          activityForm.get('title').touched
         "
       >
         Title is required
       </div>
       <input
-        formControlName="titulo"
+        formControlName="title"
         [ngClass]="{ 'has-danger': activityForm.get('title').valid }"
         type="text"
         class="form-control p-0"
-        id="tituloActividad"
+        id="titleActividad"
         placeholder="Ciclismo por la mañana"
       />
     </div>
@@ -35,8 +35,8 @@
       <div
         style="color: red"
         *ngIf="
-          !activityForm.get('distanciaValor').valid &&
-          activityForm.get('distanciaValor').touched
+          !activityForm.get('distance').valid &&
+          activityForm.get('distance').touched
         "
       >
        Distance is required
@@ -45,7 +45,7 @@
         <div class="col-6 p-0">
           <input
             style="padding: 0"
-            formControlName="distanciaValor"
+            formControlName="distance"
             type="number"
             min="0.01"
             step="0.1"
@@ -56,7 +56,7 @@
         </div>
         <div class="col-6 p-0">
           <select
-            formControlName="unidad"
+            formControlName="unit"
             class="form-control"
             id="distanciaUnidad"
           >
@@ -70,11 +70,11 @@
     </div>
 
     <div class="form-group">
-      <label for="dificultadActividad">Difficult</label>
+      <label for="difficultActividad">Difficult</label>
       <select
-        formControlName="dificultad"
+        formControlName="difficult"
         class="form-control"
-        id="dificultadActividad"
+        id="difficultActividad"
       >
         <option value="Easy">Easy</option>
         <option value="Medium">Medium</option>
@@ -98,14 +98,14 @@
         <div class="col-6 p-0">
           <div class="contenedor">
             <input
-              formControlName="hora"
+              formControlName="hours"
               type="number"
               class="form-control"
-              id="horaActividad"
+              id="hoursActividad"
             />
 
-            <label for="horaActividad">
-              <abbr title="hora" class="p-3">h</abbr>
+            <label for="hoursActividad">
+              <abbr title="hours" class="p-3">h</abbr>
             </label>
           </div>
         </div>
@@ -114,13 +114,13 @@
           <div class="contenedor">
             <input
               type="number"
-              formControlName="minuto"
+              formControlName="min"
               class="form-control"
-              id="minutoActividad"
+              id="minActividad"
             />
 
-            <label for="horaActividad">
-              <abbr title="minuto" class="p-3">min</abbr>
+            <label for="hoursActividad">
+              <abbr title="min" class="p-3">min</abbr>
             </label>
           </div>
         </div>
@@ -131,7 +131,7 @@
       <label for="decripActividad">Activity description</label>
       <textarea
         class="form-control"
-        formControlName="descripcion"
+        formControlName="description"
         id="decripActividad"
         rows="3"
         cols="7"

@@ -52,7 +52,6 @@ export class RegisterComponent {
     this.userService
       .signUp(user)
       .then(() => {
-        console.log("Hola")
         void Swal.fire({
           position: "top-end",
           icon: "success",

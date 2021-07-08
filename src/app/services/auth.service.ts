@@ -24,17 +24,16 @@ export class AuthService implements UserApiClientInterface {
     this.userApiUrl = {
       logout: "auth/logout",
       login: "auth/login",
-      signUp: "auth/sign-up",
+      signUp: "auth/register",
       user: "user",
     };
     this.user = {};
   }
 
   async get(): Promise<User> {
-    const token = this.cookieService.get(environment.tokenKey);
     const params: HttpRequestParamsInterface = {
-      url: this.userApiUrl.login,
-      headers: { token },
+      url: this.userApiUrl.user,
+      requireAuthorization: true,
     };
 
     const user = await this.httpClient.get(params);
@@ -53,15 +52,20 @@ export class AuthService implements UserApiClientInterface {
   }
 
   logout(): Promise<void> {
-    const token = this.cookieService.get(environment.tokenKey);
     const params: HttpRequestParamsInterface = {
-      url: this.userApiUrl.login,
-      payload: { token },
+      url: this.userApiUrl.logout,
+      requireAuthorization: true,
     };
 
-    this.cookieService.delete(environment.tokenKey);
-
-    return this.httpClient.get(params);
+    return new Promise((resolve, reject) => {
+      this.httpClient
+        .get(params)
+        .then(() => {
+          this.cookieService.delete(environment.tokenKey);
+          resolve();
+        })
+        .catch((error) => reject(error));
+    });
   }
 
   set(token: string): void {
@@ -91,7 +95,9 @@ export class AuthService implements UserApiClientInterface {
 
           resolve(user);
         })
-        .catch(reject);
+        .catch((error) => {
+          reject(error);
+        });
     });
   }
 }

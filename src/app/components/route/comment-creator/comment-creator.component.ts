@@ -3,6 +3,7 @@ import { Comment } from "../../../models/domains/comment.domain";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import Swal from "sweetalert2";
 import { CommentService } from "../../../services/comment.service";
+import { Route } from "../../../models/domains/route.domain";
 
 @Component({
   selector: "app-comment-creator",
@@ -11,6 +12,7 @@ import { CommentService } from "../../../services/comment.service";
 })
 export class CommentCreatorComponent {
   @Input() showDialog: boolean;
+  @Input() route: Route;
 
   commentForm: FormGroup;
   privacityControl = false;
@@ -49,6 +51,7 @@ export class CommentCreatorComponent {
 
     this.commentForm.reset();
     const comment: Comment = {
+      routeId: this.route.id,
       id: "",
       title,
       name,

@@ -9,10 +9,10 @@ import { Route } from "../../models/domains/route.domain";
 export class RouteCardComponent {
   @Input() route: Route = {};
 
-  @Output() selectedRoute: EventEmitter<number>;
+  @Output() selectedRoute: EventEmitter<string>;
 
   constructor() {
-    this.selectedRoute = new EventEmitter<number>();
+    this.selectedRoute = new EventEmitter<string>();
   }
 
   showRoute(): void {

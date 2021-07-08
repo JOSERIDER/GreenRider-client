@@ -1,7 +1,7 @@
 import { Comment } from "./comment.domain";
 
 export interface Route {
-  id?: number;
+  id?: string;
   image?: string;
   name?: string;
   duration?: string;
