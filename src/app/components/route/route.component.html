@@ -6,7 +6,7 @@
 
         <app-route-content [route]="route" ></app-route-content>
 
-        <app-comment-creator [showDialog]="!route.comments"></app-comment-creator>
+        <app-comment-creator [route]="route" [showDialog]="!route.comments"></app-comment-creator>
 
         <app-comment-list [comments]="route.comments"></app-comment-list>
     </div>

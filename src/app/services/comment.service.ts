@@ -22,7 +22,8 @@ export class CommentService implements CommentApiClientInterface {
   create(comment: Comment): Promise<Comment> {
     const params: HttpRequestParamsInterface = {
       url: this.commentUrl.comment,
-      payload: comment
+      payload: comment,
+      requireAuthorization: true
     };
 
     return this.httpClient.post(params);

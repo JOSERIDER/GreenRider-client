@@ -3,4 +3,5 @@ export interface Comment {
   name?: string;
   title?: string;
   content?: string;
+  routeId?: string;
 }

@@ -48,6 +48,7 @@ export class RouteService implements RouteApiClientInterface {
     const params: HttpRequestParamsInterface = {
       url: this.routeParams.routes,
       payload: route,
+      requireAuthorization: true
     };
 
     return this.httpClient.post(params);
@@ -57,6 +58,7 @@ export class RouteService implements RouteApiClientInterface {
     const params: HttpRequestParamsInterface = {
       url: this.routeParams.routes,
       payload: route,
+      requireAuthorization: true
     };
 
     return this.httpClient.put(params);

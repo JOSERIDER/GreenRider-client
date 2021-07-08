@@ -25,7 +25,7 @@ export class SearchComponent implements OnInit {
     });
   }
 
-  async showRoute(index: number): Promise<void> {
+  async showRoute(index: string): Promise<void> {
     await this._router.navigate(["/route", index]);
   }
 }

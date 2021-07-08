@@ -1,12 +1,8 @@
 import { Component } from "@angular/core";
-import {
-  FormBuilder,
-  FormControl,
-  FormGroup,
-  Validators,
-} from "@angular/forms";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 import Swal from "sweetalert2";
-import { Route } from "../../models/domains/route.domain";
+import { RouteService } from "../../services/route.service";
+import { Router } from "@angular/router";
 
 @Component({
   selector: "app-create-activity",
@@ -15,12 +11,8 @@ import { Route } from "../../models/domains/route.domain";
 })
 export class CreateActivityComponent {
   activityForm: FormGroup;
-  private newActivity: Route = {};
 
-  constructor(
-    //private rutaService: RutasService,
-    private formBuilder: FormBuilder
-  ) {
+  constructor(private routeService: RouteService, private router: Router) {
     this.activityForm = new FormGroup({
       title: new FormControl("", [
         Validators.required,
@@ -40,7 +32,7 @@ export class CreateActivityComponent {
     });
   }
 
-  saveActivity(): void {
+  async saveActivity(): Promise<void> {
     const title = this.activityForm.get("title")?.value as string;
     const distance = this.activityForm.get("distance")?.value as number;
     const unit = this.activityForm.get("unit")?.value as string;
@@ -49,24 +41,26 @@ export class CreateActivityComponent {
     const description = this.activityForm.get("description")?.value as string;
     const difficult = this.activityForm.get("difficult")?.value as string;
 
-    this.newActivity = {
+    const activity = {
       name: title,
       description,
       img: "../../../assets/img/default_activity.jpg",
       difficult,
-      duration: `${hours} h, ${min} min`,
+      duration: `${ hours } h, ${ min } min`,
       distance: distance,
       unit,
       mapUrl: "",
     };
 
-    // this.rutaService.rutasInfo.push(this.newActivity);
+    await this.routeService.insertRoute(activity);
 
     this.activityForm.reset();
-    void Swal.fire(
-      "Actividad añadida",
-      "Tu actividad se ha guardado correctamente!",
+    Swal.fire(
+      "Activity created",
+      "Your activity has been created successfully!",
       "success"
-    );
+    ).then(() => {
+      void this.router.navigate(["routes"]);
+    });
   }
 }
